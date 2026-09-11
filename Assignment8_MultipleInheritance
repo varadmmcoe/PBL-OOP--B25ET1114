@@ -1,105 +1,78 @@
 #include <iostream>
-#include <cstring>
 using namespace std;
-
-class String
-{
-    char *str;
-
-public:
-
-    // Default constructor
-    String()
-    {
-        str = new char[1];
-        str[0] = '\0';
-    }
-
-    // Parameterized constructor
-    String(const char *s)
-    {
-        str = new char[strlen(s) + 1];
-        strcpy(str, s);
-    }
-
-    // Copy constructor
-    String(const String &obj)
-    {
-        str = new char[strlen(obj.str) + 1];
-        strcpy(str, obj.str);
-    }
-
-    // Accept function
-    void accept()
-    {
-        char temp[100];
-
-        cout << "Enter string: ";
-        cin.getline(temp, 100);
-
-        delete[] str;
-
-        str = new char[strlen(temp) + 1];
-        strcpy(str, temp);
-    }
-
-    // Display function
-    void display() const
-    {
-        cout << str;
-    }
-
-    // String concatenation
-    String concat(const String &obj)
-    {
-        String temp;
-
-        delete[] temp.str;
-
-        temp.str = new char[strlen(str) + strlen(obj.str) + 1];
-
-        strcpy(temp.str, str);
-        strcat(temp.str, obj.str);
-
-        return temp;
-    }
-
-    // Destructor
-    ~String()
-    {
-        delete[] str;
-    }
-};
 
 int main()
 {
-    String s1, s2, s3;
+    int choice;
 
-    cout << "Enter first string:" << endl;
-    s1.accept();
+    cout << "Exception Handling Program" << endl;
+    cout << "1. Division by zero" << endl;
+    cout << "2. Negative number" << endl;
+    cout << "3. Invalid age" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
 
-    cout << "Enter second string:" << endl;
-    s2.accept();
+    try
+    {
+        if (choice == 1)
+        {
+            int a, b;
 
-    cout << "\nFirst string: ";
-    s1.display();
+            cout << "Enter two numbers: ";
+            cin >> a >> b;
 
-    cout << "\nSecond string: ";
-    s2.display();
+            if (b == 0)
+                throw b;
 
-    // Concatenation
-    s3 = s1.concat(s2);
+            cout << "Result = " << a / b << endl;
+        }
 
-    cout << "\n\nConcatenated string: ";
-    s3.display();
+        else if (choice == 2)
+        {
+            int n;
 
-    // Copy constructor
-    String s4(s1);
+            cout << "Enter a number: ";
+            cin >> n;
 
-    cout << "\nCopied string: ";
-    s4.display();
+            if (n < 0)
+                throw "Negative number is not allowed";
 
-    cout << endl;
+            cout << "Number = " << n << endl;
+        }
+
+        else if (choice == 3)
+        {
+            int age;
+
+            cout << "Enter age: ";
+            cin >> age;
+
+            if (age < 0 || age > 150)
+                throw age;
+
+            cout << "Valid age = " << age << endl;
+        }
+
+        else
+        {
+            throw 1.5;
+        }
+    }
+
+    catch (int)
+    {
+        cout << "Exception: Invalid integer value!" << endl;
+    }
+
+    catch (const char *msg)
+    {
+        cout << "Exception: " << msg << endl;
+    }
+
+    catch (double)
+    {
+        cout << "Exception: Invalid choice!" << endl;
+    }
 
     return 0;
 }
