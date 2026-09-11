@@ -1,1 +1,106 @@
 
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class String
+{
+    char *str;
+
+public:
+
+    // Default constructor
+    String()
+    {
+        str = new char[1];
+        str[0] = '\0';
+    }
+
+    // Parameterized constructor
+    String(const char *s)
+    {
+        str = new char[strlen(s) + 1];
+        strcpy(str, s);
+    }
+
+    // Copy constructor
+    String(const String &obj)
+    {
+        str = new char[strlen(obj.str) + 1];
+        strcpy(str, obj.str);
+    }
+
+    // Accept function
+    void accept()
+    {
+        char temp[100];
+
+        cout << "Enter string: ";
+        cin.getline(temp, 100);
+
+        delete[] str;
+
+        str = new char[strlen(temp) + 1];
+        strcpy(str, temp);
+    }
+
+    // Display function
+    void display() const
+    {
+        cout << str;
+    }
+
+    // String concatenation
+    String concat(const String &obj)
+    {
+        String temp;
+
+        delete[] temp.str;
+
+        temp.str = new char[strlen(str) + strlen(obj.str) + 1];
+
+        strcpy(temp.str, str);
+        strcat(temp.str, obj.str);
+
+        return temp;
+    }
+
+    // Destructor
+    ~String()
+    {
+        delete[] str;
+    }
+};
+
+int main()
+{
+    String s1, s2, s3;
+
+    cout << "Enter first string:" << endl;
+    s1.accept();
+
+    cout << "Enter second string:" << endl;
+    s2.accept();
+
+    cout << "\nFirst string: ";
+    s1.display();
+
+    cout << "\nSecond string: ";
+    s2.display();
+
+    // Concatenation
+    s3 = s1.concat(s2);
+
+    cout << "\n\nConcatenated string: ";
+    s3.display();
+
+    // Copy constructor
+    String s4(s1);
+
+    cout << "\nCopied string: ";
+    s4.display();
+
+    cout << endl;
+
+    return 0;
+}
