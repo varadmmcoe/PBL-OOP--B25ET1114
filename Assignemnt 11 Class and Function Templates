@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+// Function Template: Swap two variables of any data type
+template <typename T>
+void swapValues(T &a, T &b) {
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+// Class Template: Generic Calculator
+template <typename T>
+class Calculator {
+private:
+    T num1, num2;
+public:
+    Calculator(T n1, T n2) : num1(n1), num2(n2) {}
+
+    T add() { return num1 + num2; }
+    T multiply() { return num1 * num2; }
+};
+
+int main() {
+    // 1. Function Template Demo
+    int x = 5, y = 10;
+    cout << "Before swap: x = " << x << ", y = " << y << endl;
+    swapValues(x, y);
+    cout << "After swap:  x = " << x << ", y = " << y << endl;
+
+    string str1 = "World", str2 = "Hello";
+    swapValues(str1, str2);
+    cout << "After string swap: " << str1 << " " << str2 << endl << endl;
+
+    // 2. Class Template Demo
+    Calculator<int> intCalc(10, 20);
+    cout << "Integer Addition: " << intCalc.add() << endl;
+
+    Calculator<double> doubleCalc(4.5, 2.5);
+    cout << "Double Multiplication: " << doubleCalc.multiply() << endl;
+
+    return 0;
+}
