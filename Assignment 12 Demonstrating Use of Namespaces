@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+// First namespace definition
+namespace MathOperations {
+    int val = 100;
+
+    void display() {
+        cout << "Inside MathOperations namespace. Value = " << val << endl;
+    }
+
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+// Second namespace definition (demonstrating scope separation)
+namespace AdvancedMath {
+    int val = 500;
+
+    void display() {
+        cout << "Inside AdvancedMath namespace. Value = " << val << endl;
+    }
+}
+
+int main() {
+    // Accessing namespace members using scope resolution operator (::)
+    MathOperations::display();
+    AdvancedMath::display();
+
+    cout << "Addition using MathOperations: " 
+         << MathOperations::add(15, 25) << endl;
+
+    // Using keyword local to scope
+    using namespace MathOperations;
+    cout << "Direct access to MathOperations val: " << val << endl;
+
+    return 0;
+}
