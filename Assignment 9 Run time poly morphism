@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+// Base class
+class Shape {
+protected:
+    double dimension1, dimension2;
+public:
+    Shape(double d1 = 0, double d2 = 0) : dimension1(d1), dimension2(d2) {}
+
+    // Pure virtual function
+    virtual void displayArea() = 0;
+
+    virtual ~Shape() {}
+};
+
+class Rectangle : public Shape {
+public:
+    Rectangle(double l, double b) : Shape(l, b) {}
+
+    void displayArea() override {
+        cout << "Area of Rectangle: " << (dimension1 * dimension2) << endl;
+    }
+};
+
+class Triangle : public Shape {
+public:
+    Triangle(double b, double h) : Shape(b, h) {}
+
+    void displayArea() override {
+        cout << "Area of Triangle: " << (0.5 * dimension1 * dimension2) << endl;
+    }
+};
+
+int main() {
+    Shape* shapePtr;
+    
+    Rectangle rect(10, 5);
+    Triangle tri(10, 4);
+
+    // Dynamic binding / Run-time polymorphism
+    shapePtr = &rect;
+    shapePtr->displayArea();
+
+    shapePtr = &tri;
+    shapePtr->displayArea();
+
+    return 0;
+}
